@@ -5,7 +5,7 @@ from django.contrib import messages
 
 # Create your views here.
 def searchbook(request):
-    booklist = BookList.objects.all()
+    booklist = BookList.objects.all().order_by('title')
 
     search_key = request.GET.get('search_key')
     if search_key:
@@ -14,14 +14,8 @@ def searchbook(request):
     return render(request, 'visitor/search_screen.html',{'booklist':booklist})
 
 
-# def searchedbooklist(request):
-#     all_book_list = BookList.objects.all()
-#     search_key = request.GET.get('search_key')
-#     if search_key :
-#         booklist = all_book_list.filter(title__icontains=search_key)
+def drawmap(request, id):
+    searched_book = BookList.objects.get(id=id)
 
-#         return render(request, 'visitor/searched_booklist.html', {'booklist':booklist})
-
-def startornot(reqeust):
     
-    return render(request, 'visitor/start_or_not.html',{'book':book})
+    return render(request, 'common/draw_map.html', {'searched_book':searched_book})

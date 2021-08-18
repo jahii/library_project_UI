@@ -6,5 +6,5 @@ from . import views
 urlpatterns = [
     path('', views.searchbook, name = "search-book"),
 #   path('', views.searchedbooklist, name ="searched-booklist"),
-    path('start_or_not/', views.startornot, name ="start-or-not"),
+    path('drawmap/<int:id>', views.drawmap, name ="drawing-map"),
 ]

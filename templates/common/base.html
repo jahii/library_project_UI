@@ -10,9 +10,9 @@
         #title {
             text-align: center;
             width: 300px;
-            border: 1px solid red;
+            border: 2px solid red;
             position: relative;
-            margin: 150px auto;
+            margin: 150px auto 30px;
         }
 
         #user {
@@ -35,14 +35,20 @@
 
         .button {
             display: inline-block;
-            position: relative;
-            bottom: 100px;
-            left: 500px;
-            margin-left: 30px;
-            margin-right: 30px;
         }
         #main{
-            align-content: center;
+            text-align: center;
+        }
+        .admin{
+            text-align: center;
+            margin: 30px;
+        }
+        .admin>a{
+            border: 2px solid black;
+            color: black;
+            font-size: 1.3rem;
+            padding: 5px 15px;
+            text-decoration: none;
         }
     </style>
 </head>
@@ -61,6 +67,11 @@
         {% csrf_token %}
         <input id="manager" type="submit" value="근로자">
     </form>
+</div>
+<div class="admin">
+    <a href="/admin/">
+            관리자 페이지로
+    </a>
 </div>
 </body>
 </html>

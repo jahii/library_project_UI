@@ -3,50 +3,61 @@
 {% block content %}
 
 
-    <div>
+    <div id="title">
         <h1>도서 검색창</h1>
     </div>
-    <form action="" method='GET'>
-        <div class="row" style="margin-bottom:10px;">
-            <div class="col-lg-6">
-                <div class="input-group">
-                    <input type="text" class="form-control" name="search_key" value="{{ search_key }}"
-                        placeholder="looking for...">
-                    <span class="input-group-btn">
-                        <input class="btn btn-default" type="submit" value="Search">
-                    </span>
-                </div><!-- /input-group -->
-            </div><!-- /.col-lg-6 -->
-        </div><!-- /.row -->
-    </form>
-    <div class="row">
-        {% for book in booklist %}
-        <div id="book_list_search" class="col-md-5" style="float: left; margin-bottom: 30px; margin-right: 30px;">
-        <button id=button onclick="check()">
-                {% csrf_token %}
-                
-                <h4>
-                    {{ book.title }}
-                </h4>
-            <h5>by.{{ book.author }}</h5>
-            </button>
-        </div>
-        {% endfor %}
+    <div id="main">
+        <form id="search" action="" method='GET'>       
+            <div id="mainsearch">
+                <input class="form1" type="text"  name="search_key" value="{{ search_key }}" placeholder="책 제목을 검색하세요">                    
+                <input class="button" type="submit" value="Search">
+            </div>
+        </form>
+    </div>
+    <div>
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                        제목
+                    </td>
+                    <td>
+                        저자
+                    </td>
+                    <td>
+                        위치
+                    </td>
+                </tr>
+                {% for book in booklist %}
+                <tr class="contents" onclick="check('{{ book.title }}','{{ book.id}}');">
+                    {% csrf_token %}
+                        <td>
+                            {{book.title}}
+                        </td>
+                        <td>
+                            {{book.author}}
+                        </td>
+                        <td>
+                            {{book.location}}
+                        </td>
+                    
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
     <script language="javascript">
     
-        function check(){
-            var is = confirm(" 이 책을 찾으시겠습니까?");
+        function check(title,id){
+            var is = confirm(title+"   -   이 책을 찾으시겠습니까?");
             if(is){
-                location.href="./start_or_not/";
+                location.href="./drawmap/"+id;
                 return true;
             }
             else{
                 return false;
             }
         }
-    
-
     </script>
 
 {% endblock %}
