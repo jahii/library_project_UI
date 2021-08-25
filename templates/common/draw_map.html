@@ -4,6 +4,20 @@
     </head>
 
     <body>
-        <h1>{{searched_book.title}}으로 가는 지도 그리기</h1>
+        <h1>{{ searched_book.title }}으로 가는 지도 그리기</h1>
+        <h2> 위치 정보 : </h2><h2 id="location">{{ text }}</h2>
+    <script>
+        var socket = new WebSocket('ws://localhost:8000/ws/some_url/');
+        socket.onmessage = function(event){
+            var data = JSON.parse(event.data);
+            console.log(data);
+            document.querySelector('#location').innerText=data.current_lo;
+
+        }
+
+    </script>
+    
+    
     </body>
+
 </html>

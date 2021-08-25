@@ -11,11 +11,10 @@ def searchbook(request):
     if search_key:
         booklist = booklist.filter(title__icontains=search_key)
 
-    return render(request, 'visitor/search_screen.html',{'booklist':booklist})
+    return render(request, 'visitor/search_screen.html', {'booklist':booklist} )
 
 
 def drawmap(request, id):
     searched_book = BookList.objects.get(id=id)
-
-    
-    return render(request, 'common/draw_map.html', {'searched_book':searched_book})
+    return render(request, 'common/draw_map.html', {'searched_book':searched_book, 'type' : 'visitor'} )
+    #common에 있는 지도 그리는 template으로 보내는 형태, 이용자가 보내므로 type은 visitor인 dictionary 데이터 보냄.

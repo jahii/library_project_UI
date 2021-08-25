@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'common',
     'visitor',
     'worker',
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -71,6 +72,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'library_UI.wsgi.application'
+ASGI_APPLICATION = 'library_UI.asgi.application'
 
 
 # Database
