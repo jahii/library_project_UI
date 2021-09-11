@@ -1,24 +1,33 @@
 import json
 from random import randint
-from channels.generic.websocket import WebsocketConsumer
-from time import sleep
+from channels.generic.websocket import AsyncWebsocketConsumer
+from asyncio import sleep
 import serial
 from .models import *
-class WSConsumer(WebsocketConsumer):
-    def connect(self):
+ser = serial.Serial('COM3', '9600')
+class WSConsumer(AsyncWebsocketConsumer):
+    async def connect(self):
 
-        self.accept()
-
-        ser = serial.Serial('COM3', '9600')
-
-        for i in range(10):
+        await self.accept()  
+        for i in range(1000):
             if ser.readable():
                 coor = ser.readline()
                 coordinate = int(coor.decode())
-                self.send(json.dumps({'message': coordinate}))
+                await self.send(json.dumps({'message': coordinate}))               
+            await sleep(0.01)
+            
+        
+        
+        # while True:
+        #     for i in range(10):
+        #         coordinate = i
+        #         await self.send(json.dumps({'message': coordinate}))
+        #         await sleep(1)
 
-    def disconnect(self, close_code):
-        self.close(self)
+
+    async def disconnect(self, close_code):
+        await ser.close()
+        await self.close(self)
 
 """
 class LoadBooks(WebsocketConsumer):
